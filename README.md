@@ -1,14 +1,18 @@
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # VectrixDB <a href="https://github.com/knowusuboaky/vectrixdb-r"><img src="man/figures/logo.svg" align="right" height="120" /></a>
 
 <!-- badges: start -->
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+
+[![License: Apache
+2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![R-CMD-check](https://github.com/knowusuboaky/vectrixdb-r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/knowusuboaky/vectrixdb-r/actions)
 [![Docs](https://img.shields.io/badge/docs-pkgdown-blue.svg)](https://knowusuboaky.github.io/vectrixdb-r/)
-[![CRAN status](https://www.r-pkg.org/badges/version/VectrixDB)](https://cran.r-project.org/package=VectrixDB)
-[![Total Downloads](https://cranlogs.r-pkg.org/badges/grand-total/VectrixDB?color=orange)](https://cranlogs.r-pkg.org/badges/grand-total/VectrixDB)
-[![Last Commit](https://img.shields.io/github/last-commit/knowusuboaky/vectrixdb-r.svg)](https://github.com/knowusuboaky/vectrixdb-r/commits/main)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/VectrixDB)](https://cran.r-project.org/package=VectrixDB)
+[![Total
+Downloads](https://cranlogs.r-pkg.org/badges/grand-total/VectrixDB?color=orange)](https://cranlogs.r-pkg.org/badges/grand-total/VectrixDB)
+[![Last
+Commit](https://img.shields.io/github/last-commit/knowusuboaky/vectrixdb-r.svg)](https://github.com/knowusuboaky/vectrixdb-r/commits/main)
 [![Issues](https://img.shields.io/github/issues/knowusuboaky/vectrixdb-r.svg)](https://github.com/knowusuboaky/vectrixdb-r/issues)
 <!-- badges: end -->
 
@@ -16,11 +20,13 @@
 
 **Zero config. Text in, results out. Pure R - no Python required.**
 
-VectrixDB is a lightweight, pure R vector database with built-in text embeddings. No external dependencies, no API keys, no Python - just install and use.
+VectrixDB is a lightweight, pure R vector database with built-in text
+embeddings. No external dependencies, no API keys, no Python - just
+install and use.
 
 ## Installation
 
-```r
+``` r
 # Install from GitHub
 devtools::install_github("knowusuboaky/vectrixdb-r")
 
@@ -33,7 +39,7 @@ install.packages(c("RcppAnnoy", "word2vec", "stopwords"))
 
 ## Quick Start
 
-```r
+``` r
 library(VectrixDB)
 
 # Create and add - ONE LINE
@@ -51,15 +57,14 @@ print(results$top()$text)
 
 ### Pure R - No Python Required
 
-Unlike other vector databases, VectrixDB is 100% R:
-- **TF-IDF embeddings** - Built-in, works out of the box
-- **BM25 search** - Using `text2vec`
-- **Optional word vectors** - Load GloVe or word2vec files
-- **ANN indexing** - Fast search with `RcppAnnoy`
+Unlike other vector databases, VectrixDB is 100% R: - **TF-IDF
+embeddings** - Built-in, works out of the box - **BM25 search** - Using
+`text2vec` - **Optional word vectors** - Load GloVe or word2vec files -
+**ANN indexing** - Fast search with `RcppAnnoy`
 
 ### Search Modes
 
-```r
+``` r
 # Dense (semantic) search using TF-IDF/word vectors
 results <- db$search("query", mode = "dense")
 
@@ -75,7 +80,7 @@ results <- db$search("query", mode = "ultimate")
 
 ### Embedding Options
 
-```r
+``` r
 # Default: TF-IDF (no external files needed)
 db <- Vectrix$new("docs")
 
@@ -95,7 +100,7 @@ db <- Vectrix$new("docs", embed_fn = my_embed, dimension = 100)
 
 ### Metadata Filtering
 
-```r
+``` r
 # Add with metadata
 db$add(
   texts = c("Python guide", "ML tutorial", "R handbook"),
@@ -112,7 +117,7 @@ results <- db$search("guide", filter = list(category = "programming"))
 
 ### Reranking
 
-```r
+``` r
 # MMR for diversity
 results <- db$search("AI", rerank = "mmr", diversity = 0.7)
 
@@ -122,7 +127,7 @@ results <- db$search("AI", rerank = "cross-encoder")
 
 ### Results API
 
-```r
+``` r
 results <- db$search("query")
 
 # Access results
@@ -143,7 +148,7 @@ results$foreach(function(r) {
 
 ### VectrixDB Class
 
-```r
+``` r
 # Create database
 vdb <- VectrixDB$new("./my_data")
 
@@ -171,18 +176,20 @@ results <- collection$hybrid_search(
 
 ### REST API Server
 
-```r
+``` r
 # Start server (requires plumber package)
 vectrix_serve(path = "./my_data", port = 7377)
 ```
 
 ## Performance Tips
 
-1. **Use RcppAnnoy for large collections** - Automatically enabled for 100+ docs
-2. **Pre-train embeddings** - Fit the embedder once on your corpus
-3. **Use word vectors** - GloVe/word2vec provides better semantic search than TF-IDF
+1.  **Use RcppAnnoy for large collections** - Automatically enabled for
+    100+ docs
+2.  **Pre-train embeddings** - Fit the embedder once on your corpus
+3.  **Use word vectors** - GloVe/word2vec provides better semantic
+    search than TF-IDF
 
-```r
+``` r
 # Pre-train for better embeddings
 db <- Vectrix$new("docs")
 # Add your corpus - TF-IDF will fit automatically
@@ -192,30 +199,25 @@ db$add(large_corpus)
 
 ## Comparison with Python Version
 
-| Feature | R Version | Python Version |
-|---------|-----------|----------------|
-| Dependencies | Pure R | Python + ONNX |
-| Default embeddings | TF-IDF | MiniLM (neural) |
-| Word vectors | GloVe, word2vec | Same + more |
-| ANN indexing | RcppAnnoy | usearch |
-| API server | plumber | FastAPI |
+| Feature            | R Version       | Python Version  |
+|--------------------|-----------------|-----------------|
+| Dependencies       | Pure R          | Python + ONNX   |
+| Default embeddings | TF-IDF          | MiniLM (neural) |
+| Word vectors       | GloVe, word2vec | Same + more     |
+| ANN indexing       | RcppAnnoy       | usearch         |
+| API server         | plumber         | FastAPI         |
 
-The R version prioritizes simplicity and R-native tools. For neural embeddings, use the Python version or provide custom embed_fn.
+The R version prioritizes simplicity and R-native tools. For neural
+embeddings, use the Python version or provide custom embed_fn.
 
 ## Dependencies
 
-**Required:**
-- R6 - OOP classes
-- text2vec - TF-IDF, BM25, vocabulary
-- digest - ID generation
-- Matrix - Sparse matrices
+**Required:** - R6 - OOP classes - text2vec - TF-IDF, BM25, vocabulary -
+digest - ID generation - Matrix - Sparse matrices
 
-**Optional:**
-- RcppAnnoy - Fast ANN search
-- word2vec - Load word2vec models
-- stopwords - Remove stopwords
-- RSQLite, DBI - Persistent storage
-- plumber - REST API
+**Optional:** - RcppAnnoy - Fast ANN search - word2vec - Load word2vec
+models - stopwords - Remove stopwords - RSQLite, DBI - Persistent
+storage - plumber - REST API
 
 ## License
 

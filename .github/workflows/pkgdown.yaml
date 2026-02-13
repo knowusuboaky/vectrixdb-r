@@ -4,7 +4,7 @@ on:
   workflow_run:
     workflows: ["R-CMD-check"]
     types: [completed]
-    branches: [main, master]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
