@@ -1,0 +1,114 @@
+---
+title: "Local Blob / Vector Database"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Local Blob / Vector Database}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Overview
+
+This article explains the **local_blob/vector database** storage layout and how to inspect it.
+
+# Folder Layout
+
+```text
+local_blob/
+  vector database/
+    bmo_products/
+    _vectrixdb.db
+```
+
+- `bmo_products/`: collection-level artifacts and snapshots.
+- `_vectrixdb.db`: local metadata database for collection registry/state.
+
+# Script Code: Snapshot Persistence
+
+These functions from `product collections/create_collection.R` control local blob writes:
+
+```{r eval = FALSE}
+collection_output_dir <- function(data_path) {
+  normalized <- normalizePath(data_path, winslash = "/", mustWork = FALSE)
+  if (tolower(basename(normalized)) == tolower(COLLECTION_NAME)) {
+    return(normalized)
+  }
+  file.path(normalized, COLLECTION_NAME)
+}
+
+persist_collection_snapshot <- function(chunks, data_path) {
+  out_dir <- collection_output_dir(data_path)
+  if (!dir.exists(out_dir)) {
+    dir.create(out_dir, recursive = TRUE)
+  }
+
+  saveRDS(chunks, file.path(out_dir, "chunks.rds"))
+  out_dir
+}
+```
+
+# Script Code: Local Metadata Update
+
+The local metadata DB update logic:
+
+```{r eval = FALSE}
+update_collection_tags_at_path <- function(data_path) {
+  db_path <- file.path(data_path, "_vectrixdb.db")
+  if (!file.exists(db_path)) return(FALSE)
+  if (!requireNamespace("DBI", quietly = TRUE) || !requireNamespace("RSQLite", quietly = TRUE)) return(FALSE)
+
+  con <- DBI::dbConnect(RSQLite::SQLite(), db_path)
+  on.exit(DBI::dbDisconnect(con), add = TRUE)
+
+  row_count <- DBI::dbGetQuery(
+    con,
+    "SELECT COUNT(*) AS n FROM collections WHERE name = ?",
+    params = list(COLLECTION_NAME)
+  )$n[[1]]
+
+  if (is.null(row_count) || row_count == 0) return(FALSE)
+
+  tags_json <- make_tags_json(COLLECTION_TAGS)
+  DBI::dbExecute(
+    con,
+    "UPDATE collections SET tags = ?, description = ? WHERE name = ?",
+    params = list(tags_json, COLLECTION_DESCRIPTION, COLLECTION_NAME)
+  )
+  TRUE
+}
+```
+
+# Open and Inspect
+
+```{r eval = FALSE}
+db <- VectrixDB::Vectrix$new(
+  name = "bmo_products",
+  path = "local_blob/vector database"
+)
+
+db$count()
+```
+
+# Query Example
+
+```{r eval = FALSE}
+results <- db$search(
+  query = "best cashback on groceries",
+  mode = "hybrid",
+  limit = 5
+)
+
+results$top()
+```
+
+# Operational Notes
+
+- Keep this path stable across scripts and dashboard runs.
+- Back up the `vector database` folder if you need portable local state.

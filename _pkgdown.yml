@@ -1,0 +1,15 @@
+url: https://knowusuboaky.github.io/vectrixdb-r/
+template:
+  bootstrap: 5
+
+home:
+  links:
+    - text: Report a bug
+      href: https://github.com/knowusuboaky/vectrixdb-r/issues
+
+articles:
+  - title: "Guides"
+    contents:
+      - product-collections
+      - local-blob-vector-database
+      - collections-dashboard

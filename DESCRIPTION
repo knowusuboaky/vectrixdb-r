@@ -1,0 +1,44 @@
+Package: VectrixDB
+Type: Package
+Title: Lightweight Visual-First Vector Database with Embedded ML Models
+Version: 1.1.2
+Authors@R: person(given = "Kwadwo Daddy Nyame",
+                  family = "Owusu Boakye",
+                  email = "kwadwo.owusuboakye@outlook.com",
+                  role = c("aut", "cre"))
+Maintainer: Kwadwo Daddy Nyame Owusu Boakye <kwadwo.owusuboakye@outlook.com>
+Description: A lightweight, visual-first vector database with embedded ML models
+    requiring no API keys. Features a unique 4-tier search system (dense, hybrid,
+    ultimate, graph-based), GraphRAG knowledge graphs, faceted search with ACL
+    security, HNSW approximate nearest neighbor indexing, caching layer, CLI tools,
+    and built-in Shiny dashboard. Simplifies vector database operations with zero
+    configuration - text in, results out.
+License: Apache License (>= 2)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports:
+    R6,
+    jsonlite,
+    digest,
+    Matrix,
+    text2vec (>= 0.6.0),
+    stopwords,
+    tools,
+    utils,
+    stats,
+    RSQLite,
+    DBI
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown,
+    shiny,
+    plumber,
+    pkgdown,
+    RcppAnnoy,
+    reticulate,
+    rappdirs
+Config/testthat/edition: 3
+URL: https://github.com/knowusuboaky/vectrixdb-r
+BugReports: https://github.com/knowusuboaky/vectrixdb-r/issues

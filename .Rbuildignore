@@ -1,0 +1,9 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^_pkgdown\.yml$
+^\.github$
+^docs$
+^vectrixdb_data$
+^vignettes$
+^vignettes/.*

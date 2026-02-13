@@ -1,0 +1,128 @@
+---
+title: "Collections Dashboard"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Collections Dashboard}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Overview
+
+This article documents the **collections dashboard** launcher and common runtime options
+from `collections dashboard/run_dashboard.R`.
+
+# Start Dashboard
+
+```{r eval = FALSE}
+Rscript "collections dashboard/run_dashboard.R" \
+  --port 7377 \
+  --data-path "local_blob/vector database" \
+  --collection "bmo_products"
+```
+
+Passing `--data-path` explicitly keeps the runtime aligned with the local blob folder.
+
+# Script Code: CLI Parsing
+
+CLI parser excerpt from `run_dashboard.R`:
+
+```{r eval = FALSE}
+parse_cli <- function(argv, defaults) {
+  opts <- defaults
+  i <- 1L
+
+  next_value <- function(flag_name) {
+    if (i >= length(argv)) {
+      stop(sprintf("Missing value for %s", flag_name), call. = FALSE)
+    }
+    i <<- i + 1L
+    argv[[i]]
+  }
+
+  while (i <= length(argv)) {
+    token <- argv[[i]]
+
+    if (token %in% c("-h", "--help")) {
+      usage()
+      quit(save = "no", status = 0)
+    } else if (token %in% c("-p", "--port")) {
+      opts$port <- as.integer(next_value(token))
+    } else if (token == "--host") {
+      opts$host <- next_value(token)
+    } else if (token == "--data-path") {
+      opts$data_path <- next_value(token)
+    } else if (token == "--api-key") {
+      opts$api_key <- next_value(token)
+    } else if (token == "--collection") {
+      opts$collection <- next_value(token)
+    } else if (token == "--no-auth") {
+      opts$no_auth <- TRUE
+    } else if (token == "--launch-browser") {
+      opts$launch_browser <- TRUE
+    } else if (token == "--print-only") {
+      opts$print_only <- TRUE
+    } else if (token == "--no-dashboard") {
+      opts$dashboard <- FALSE
+    } else if (token == "--dashboard") {
+      opts$dashboard <- TRUE
+    } else {
+      stop(sprintf("Unknown option: %s", token), call. = FALSE)
+    }
+
+    i <- i + 1L
+  }
+
+  opts
+}
+```
+
+# Script Code: Server Launch
+
+Server launch excerpt from `run_dashboard.R`:
+
+```{r eval = FALSE}
+serve_fn <- load_serve_function(project_root)
+do.call(
+  serve_fn,
+  list(
+    path = data_path,
+    host = opts$host,
+    port = as.integer(opts$port),
+    api_key = api_key,
+    dashboard = isTRUE(opts$dashboard),
+    launch.browser = isTRUE(opts$launch_browser)
+  )
+)
+```
+
+# Key Endpoints
+
+- Dashboard UI: `http://127.0.0.1:7377/dashboard`
+- API docs: `http://127.0.0.1:7377/docs`
+- API root: `http://127.0.0.1:7377/`
+
+# Common Flags
+
+```{r eval = FALSE}
+# Disable authentication
+Rscript "collections dashboard/run_dashboard.R" --no-auth
+
+# Bind host and custom port
+Rscript "collections dashboard/run_dashboard.R" --host 0.0.0.0 --port 7377
+
+# Print configuration without starting server
+Rscript "collections dashboard/run_dashboard.R" --print-only
+```
+
+# Troubleshooting
+
+- Confirm `--data-path` points to the same local collection path used by ingestion.
+- If startup fails, rerun with `--print-only` first to validate resolved settings.
