@@ -1,7 +1,7 @@
 # Tests for hnsw.R - HNSW Index for Approximate Nearest Neighbor Search
 
 test_that("DistanceMetric contains correct values", {
-  expect_equal(DistanceMetric$COSINE, "angular")
+  expect_equal(DistanceMetric$COSINE, "cosine")
   expect_equal(DistanceMetric$EUCLIDEAN, "euclidean")
   expect_equal(DistanceMetric$DOT, "dot")
   expect_equal(DistanceMetric$MANHATTAN, "manhattan")
