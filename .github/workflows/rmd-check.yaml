@@ -1,4 +1,4 @@
-name: Rmd-check
+name: Validate R Markdown
 
 on:
   push:

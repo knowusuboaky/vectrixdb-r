@@ -1,8 +1,8 @@
-name: pkgdown
+name: Deploy Documentation Site
 
 on:
   workflow_run:
-    workflows: ["R-CMD-check"]
+    workflows: ["Build & Test Package"]
     types: [completed]
     branches: [main]
   workflow_dispatch:
