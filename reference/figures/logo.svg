@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="160" viewBox="0 0 512 160" role="img" aria-label="VectrixDB logo">
+  <rect width="512" height="160" rx="18" fill="#0b1220"/>
+  <rect x="18" y="18" width="124" height="124" rx="16" fill="#1d4ed8"/>
+  <path d="M47 100L80 50L113 100" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="80" cy="88" r="10" fill="#93c5fd"/>
+  <text x="166" y="74" font-family="Segoe UI, Arial, sans-serif" font-size="42" font-weight="700" fill="#ffffff">VectrixDB</text>
+  <text x="166" y="108" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#cbd5e1">Vector Database for R</text>
+</svg>
