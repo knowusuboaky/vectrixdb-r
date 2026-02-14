@@ -74,6 +74,15 @@ test_that("DocumentChunker chunks by characters", {
   chunks <- chunker$chunk(text, "doc1")
 
   expect_true(length(chunks) > 1)
+  expect_true(length(chunks) < 20)
+  expect_equal(chunks[[length(chunks)]]$end_char, nchar(text))
+})
+
+test_that("DocumentChunker validates overlap settings", {
+  expect_error(
+    DocumentChunker$new(chunk_size = 50, chunk_overlap = 50, by_sentence = FALSE),
+    "chunk_overlap must be less than chunk_size"
+  )
 })
 
 test_that("Entity initializes correctly", {

@@ -261,6 +261,16 @@ DocumentChunker <- R6::R6Class(
     #' @param chunk_overlap Overlap
     #' @param by_sentence Preserve sentences
     initialize = function(chunk_size = 1200, chunk_overlap = 100, by_sentence = TRUE) {
+      if (!is.numeric(chunk_size) || chunk_size < 1) {
+        stop("chunk_size must be a positive integer")
+      }
+      if (!is.numeric(chunk_overlap) || chunk_overlap < 0) {
+        stop("chunk_overlap must be non-negative")
+      }
+      if (chunk_overlap >= chunk_size) {
+        stop("chunk_overlap must be less than chunk_size")
+      }
+
       self$chunk_size <- chunk_size
       self$chunk_overlap <- chunk_overlap
       self$by_sentence <- by_sentence
@@ -356,7 +366,15 @@ DocumentChunker <- R6::R6Class(
           end_char = end
         )
 
-        start <- end + 1 - self$chunk_overlap
+        # Stop at the end of text and guard against non-progressing overlap loops.
+        if (end >= text_len) {
+          break
+        }
+        next_start <- end + 1 - self$chunk_overlap
+        if (next_start <= start) {
+          next_start <- start + 1
+        }
+        start <- next_start
       }
 
       chunks
