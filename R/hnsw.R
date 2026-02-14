@@ -8,18 +8,7 @@
 #' @name hnsw
 NULL
 
-# =============================================================================
-# Distance Metrics
-# =============================================================================
-
-#' Distance Metric Types
-#' @export
-DistanceMetric <- list(
-  COSINE = "angular",
-  EUCLIDEAN = "euclidean",
-  DOT = "dot",
-  MANHATTAN = "manhattan"
-)
+# Note: DistanceMetric is defined in types.R
 
 # =============================================================================
 # Base HNSW Index
