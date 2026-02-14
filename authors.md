@@ -11,12 +11,12 @@ Source:
 
 Owusu Boakye K (2026). *VectrixDB: Lightweight Visual-First Vector
 Database with Embedded ML Models*. R package version 1.1.2,
-<https://github.com/knowusuboaky/vectrixdb-r>.
+<https://knowusuboaky.github.io/vectrixdb-r/>.
 
     @Manual{,
       title = {VectrixDB: Lightweight Visual-First Vector Database with Embedded ML Models},
       author = {Kwadwo Daddy Nyame {Owusu Boakye}},
       year = {2026},
       note = {R package version 1.1.2},
-      url = {https://github.com/knowusuboaky/vectrixdb-r},
+      url = {https://knowusuboaky.github.io/vectrixdb-r/},
     }
