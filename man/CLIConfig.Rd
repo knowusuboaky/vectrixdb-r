@@ -30,7 +30,7 @@ Configuration for CLI behavior
 \subsection{Method \code{new()}}{
 Create CLI config
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{CLIConfig$new(verbose = TRUE, color = TRUE, data_dir = "./vectrixdb_data")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{CLIConfig$new(verbose = TRUE, color = TRUE, data_dir = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

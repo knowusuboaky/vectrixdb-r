@@ -38,7 +38,7 @@ Vectrix <- R6::R6Class(
     #' @description Create or open a VectrixDB collection
     #'
     #' @param name Collection name
-    #' @param path Storage path (default: ./vectrixdb_data)
+    #' @param path Storage path. Defaults to a session temp directory.
     #' @param model Embedding model: "tfidf" (default), "glove-50", "glove-100",
     #'              "glove-200", "glove-300", or "word2vec"
     #' @param dimension Vector dimension (auto-detected for GloVe)
@@ -63,7 +63,7 @@ Vectrix <- R6::R6Class(
     #' db <- Vectrix$new("docs", embed_fn = my_embed_function, dimension = 768)
     #' }
     initialize = function(name = "default",
-                          path = "./vectrixdb_data",
+                          path = NULL,
                           model = NULL,
                           dimension = NULL,
                           embed_fn = NULL,
@@ -1386,7 +1386,7 @@ vectrix_create <- function(name = "default", ...) {
 #' @param path Storage path
 #' @return Vectrix object
 #' @export
-vectrix_open <- function(name = "default", path = "./vectrixdb_data") {
+vectrix_open <- function(name = "default", path = NULL) {
   Vectrix$new(name, path = path)
 }
 

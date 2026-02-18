@@ -5,19 +5,23 @@ test_that("CLIConfig initializes with defaults", {
 
   expect_true(config$verbose)
   expect_true(config$color)
-  expect_equal(config$data_dir, "./vectrixdb_data")
+  expect_equal(config$data_dir, get_data_path())
 })
 
 test_that("CLIConfig initializes with custom values", {
+  custom_dir <- file.path(tempdir(), "cli_custom_path")
   config <- CLIConfig$new(
     verbose = FALSE,
     color = FALSE,
-    data_dir = "/custom/path"
+    data_dir = custom_dir
   )
 
   expect_false(config$verbose)
   expect_false(config$color)
-  expect_equal(config$data_dir, "/custom/path")
+  expect_equal(
+    normalizePath(config$data_dir, mustWork = FALSE),
+    normalizePath(custom_dir, mustWork = FALSE)
+  )
 })
 
 test_that("set_cli_config and get_cli_config work", {
@@ -31,7 +35,10 @@ test_that("set_cli_config and get_cli_config work", {
   retrieved <- get_cli_config()
 
   expect_false(retrieved$verbose)
-  expect_equal(retrieved$data_dir, tempdir())
+  expect_equal(
+    normalizePath(retrieved$data_dir, mustWork = FALSE),
+    normalizePath(tempdir(), mustWork = FALSE)
+  )
 
   # Reset to default for other tests
   set_cli_config(CLIConfig$new())

@@ -1,12 +1,13 @@
 #' @keywords internal
 "_PACKAGE"
 
-#' VectrixDB: A Lightweight Visual-First Vector Database
+#' VectrixDB: A Lightweight Vector Database
 #'
 #' @description
-#' VectrixDB is a lightweight, visual-first vector database with embedded ML models
-#' requiring no API keys. Features a unique 4-tier search system (dense, hybrid,
-#' ultimate, graph-based) and built-in dashboard.
+#' VectrixDB is a lightweight vector database with embedded machine learning models
+#' that do not require external API (application programming interface) keys.
+#' It supports dense, hybrid, and graph-based search modes and includes a built-in
+#' dashboard.
 #'
 #' @section Main Functions:
 #' \itemize{
@@ -53,7 +54,7 @@ NULL
   # Set up package options
   op <- options()
   op.vectrixdb <- list(
-    vectrixdb.path = "./vectrixdb_data",
+    vectrixdb.path = default_data_path(),
     vectrixdb.default_model = "vectrixdb/all-MiniLM-L6-v2",
     vectrixdb.dimension = 384
   )

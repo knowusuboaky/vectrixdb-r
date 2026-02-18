@@ -28,16 +28,16 @@ CLIConfig <- R6::R6Class(
     #' @field color Use colored output
     color = TRUE,
     #' @field data_dir Default data directory
-    data_dir = "./vectrixdb_data",
+    data_dir = NULL,
 
     #' @description Create CLI config
     #' @param verbose Verbose output
     #' @param color Colored output
     #' @param data_dir Data directory
-    initialize = function(verbose = TRUE, color = TRUE, data_dir = "./vectrixdb_data") {
+    initialize = function(verbose = TRUE, color = TRUE, data_dir = NULL) {
       self$verbose <- verbose
       self$color <- color
-      self$data_dir <- data_dir
+      self$data_dir <- get_data_path(data_dir)
     }
   )
 )
@@ -91,6 +91,11 @@ cli_print <- function(msg, type = "info") {
 #' @param max_rows Max rows to show
 #' @keywords internal
 cli_table <- function(df, max_rows = 20) {
+  config <- get_cli_config()
+  if (!config$verbose) {
+    return(invisible(df))
+  }
+
   if (nrow(df) > max_rows) {
     print(head(df, max_rows))
     message(sprintf("... and %d more rows", nrow(df) - max_rows))
@@ -133,7 +138,7 @@ vdb_list <- function(data_dir = NULL) {
 
   cli_print(sprintf("Found %d collection(s):", length(items)), "info")
   for (item in items) {
-    message(sprintf("  - %s", item))
+    cli_print(sprintf("  - %s", item), "info")
   }
 
   invisible(items)
@@ -300,7 +305,7 @@ vdb_search <- function(db, query, limit = 10, mode = "hybrid", show = TRUE) {
       item <- results$items[[i]]
       text_preview <- substr(item$text, 1, 80)
       if (nchar(item$text) > 80) text_preview <- paste0(text_preview, "...")
-      message(sprintf("  %d. [%.3f] %s", i, item$score, text_preview))
+      cli_print(sprintf("  %d. [%.3f] %s", i, item$score, text_preview), "info")
     }
   }
 
@@ -374,12 +379,12 @@ vdb_info <- function(db) {
   )
 
   cli_print("Collection Info:", "info")
-  message(sprintf("  Name:      %s", info$name))
-  message(sprintf("  Path:      %s", info$path))
-  message(sprintf("  Documents: %d", info$count))
-  message(sprintf("  Dimension: %d", info$dimension))
-  message(sprintf("  Model:     %s", info$model))
-  message(sprintf("  Tier:      %s", info$tier))
+  cli_print(sprintf("  Name:      %s", info$name), "info")
+  cli_print(sprintf("  Path:      %s", info$path), "info")
+  cli_print(sprintf("  Documents: %d", info$count), "info")
+  cli_print(sprintf("  Dimension: %d", info$dimension), "info")
+  cli_print(sprintf("  Model:     %s", info$model), "info")
+  cli_print(sprintf("  Tier:      %s", info$tier), "info")
 
   invisible(info)
 }
@@ -409,9 +414,9 @@ vdb_stats <- function(db) {
   for (name in names(stats)) {
     val <- stats[[name]]
     if (is.numeric(val) && name == "memory_mb") {
-      message(sprintf("  %-15s: %.2f MB", name, val))
+      cli_print(sprintf("  %-15s: %.2f MB", name, val), "info")
     } else {
-      message(sprintf("  %-15s: %s", name, val))
+      cli_print(sprintf("  %-15s: %s", name, val), "info")
     }
   }
 
@@ -569,7 +574,6 @@ vdb_add_dir <- function(db, dir_path, pattern = "\\.txt$", recursive = TRUE) {
 vdb_interactive <- function(collection = NULL) {
   cli_print("VectrixDB Interactive Mode", "info")
   cli_print("Commands: list, create, open, add, search, info, quit", "info")
-  message("")
 
   db <- NULL
   if (!is.null(collection)) {
@@ -598,20 +602,20 @@ vdb_interactive <- function(collection = NULL) {
         "search" = { if (!is.null(db)) vdb_search(db, paste(args, collapse = " ")) },
         "info" = { if (!is.null(db)) vdb_info(db) },
         "stats" = { if (!is.null(db)) vdb_stats(db) },
-        "count" = { if (!is.null(db)) message(db$count()) },
+        "count" = { if (!is.null(db)) cli_print(as.character(db$count()), "info") },
         "clear" = { if (!is.null(db)) { db$clear(); cli_print("Cleared", "success") } },
         "help" = {
-          message("Commands:")
-          message("  list              - List collections")
-          message("  create <name>     - Create collection")
-          message("  open <name>       - Open collection")
-          message("  add <text>        - Add document")
-          message("  search <query>    - Search collection")
-          message("  info              - Collection info")
-          message("  stats             - Collection stats")
-          message("  count             - Document count")
-          message("  clear             - Clear collection")
-          message("  quit              - Exit")
+          cli_print("Commands:", "info")
+          cli_print("  list              - List collections", "info")
+          cli_print("  create <name>     - Create collection", "info")
+          cli_print("  open <name>       - Open collection", "info")
+          cli_print("  add <text>        - Add document", "info")
+          cli_print("  search <query>    - Search collection", "info")
+          cli_print("  info              - Collection info", "info")
+          cli_print("  stats             - Collection stats", "info")
+          cli_print("  count             - Document count", "info")
+          cli_print("  clear             - Clear collection", "info")
+          cli_print("  quit              - Exit", "info")
         },
         cli_print(sprintf("Unknown command: %s. Type 'help' for commands.", action), "warning")
       )

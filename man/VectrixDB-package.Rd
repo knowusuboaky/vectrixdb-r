@@ -3,13 +3,14 @@
 \docType{package}
 \name{VectrixDB-package}
 \alias{VectrixDB-package}
-\title{VectrixDB: Lightweight Visual-First Vector Database with Embedded ML Models}
+\title{VectrixDB: Lightweight Vector Database with Embedded Machine Learning Models}
 \description{
-A lightweight, visual-first vector database with embedded ML models requiring no API keys. Features a unique 4-tier search system (dense, hybrid, ultimate, graph-based), GraphRAG knowledge graphs, faceted search with ACL security, HNSW approximate nearest neighbor indexing, caching layer, CLI tools, and built-in Shiny dashboard. Simplifies vector database operations with zero configuration - text in, results out.
+A lightweight vector database for text retrieval in R with embedded machine learning models and no external API (Application Programming Interface) keys. Supports dense and hybrid search, optional HNSW (Hierarchical Navigable Small World) approximate nearest-neighbor indexing, faceted filters with ACL (Access Control List) metadata, command-line tools, and a local dashboard built with 'shiny'.
 
-VectrixDB is a lightweight, visual-first vector database with embedded ML models
-requiring no API keys. Features a unique 4-tier search system (dense, hybrid,
-ultimate, graph-based) and built-in dashboard.
+VectrixDB is a lightweight vector database with embedded machine learning models
+that do not require external API (application programming interface) keys.
+It supports dense, hybrid, and graph-based search modes and includes a built-in
+dashboard.
 }
 \section{Main Functions}{
 
@@ -45,6 +46,7 @@ print(results$top()$text)
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://knowusuboaky.github.io/vectrixdb-r/}
   \item \url{https://github.com/knowusuboaky/vectrixdb-r}
   \item Report bugs at \url{https://github.com/knowusuboaky/vectrixdb-r/issues}
 }

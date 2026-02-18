@@ -4,7 +4,7 @@
 \alias{vectrix_open}
 \title{Open an existing Vectrix collection}
 \usage{
-vectrix_open(name = "default", path = "./vectrixdb_data")
+vectrix_open(name = "default", path = NULL)
 }
 \arguments{
 \item{name}{Collection name}

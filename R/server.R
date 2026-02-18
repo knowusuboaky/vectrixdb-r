@@ -22,9 +22,9 @@ NULL
 #'
 #' @examples
 #' \dontrun{
-#' vectrix_serve(path = "./my_data", port = 7377)
+#' vectrix_serve(path = file.path(tempdir(), "my_data"), port = 7377)
 #' }
-vectrix_serve <- function(path = "./vectrixdb_data",
+vectrix_serve <- function(path = NULL,
                            host = "127.0.0.1",
                            port = 7377,
                            api_key = NULL,
@@ -1168,9 +1168,9 @@ vectrix_serve <- function(path = "./vectrixdb_data",
 #'
 #' @examples
 #' \dontrun{
-#' vectrix_info("./my_data")
+#' vectrix_info(file.path(tempdir(), "my_data"))
 #' }
-vectrix_info <- function(path = "./vectrixdb_data") {
+vectrix_info <- function(path = NULL) {
   db <- VectrixDB$new(path)
   stats <- db$stats()
 

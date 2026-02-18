@@ -559,14 +559,12 @@ LateInteractionEmbedder <- R6::R6Class(
     init_embedder = function() {
       private$token_cache <- new.env(hash = TRUE, parent = emptyenv())
 
-      # Create character-level embeddings (fixed random projection)
-      set.seed(42)  # Reproducible
+      # Create deterministic character-level embeddings without touching global RNG.
       chars <- c(letters, 0:9, "_")
-      private$char_embeddings <- matrix(
-        rnorm(length(chars) * self$dimension),
-        nrow = length(chars),
-        ncol = self$dimension
-      )
+      char_codes <- vapply(chars, function(ch) utf8ToInt(ch)[1], integer(1))
+      idx <- matrix(rep(seq_len(self$dimension), each = length(chars)), nrow = length(chars))
+      codes <- matrix(rep(char_codes, times = self$dimension), nrow = length(chars))
+      private$char_embeddings <- sin((codes + idx) * 0.017) + cos((codes * idx) * 0.011)
       rownames(private$char_embeddings) <- chars
     },
 
@@ -628,7 +626,7 @@ LateInteractionEmbedder <- R6::R6Class(
 #' @export
 download_vectors <- function(model = "glove-50", dest_dir = NULL) {
   if (is.null(dest_dir)) {
-    dest_dir <- file.path(rappdirs::user_cache_dir("VectrixDB"), "models")
+    dest_dir <- file.path(tempdir(), "vectrixdb_models")
   }
 
   if (!dir.exists(dest_dir)) {

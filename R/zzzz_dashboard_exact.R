@@ -44,7 +44,7 @@ vdb_dashboard_template_path <- function() {
 #' @return Invisibly returns server object from `vectrix_serve()`.
 #' @export
 vdb_dashboard <- function(db = NULL,
-                          data_path = "./vectrixdb_data",
+                          data_path = NULL,
                           port = 7377,
                           host = "127.0.0.1",
                           launch.browser = TRUE,
@@ -56,6 +56,7 @@ vdb_dashboard <- function(db = NULL,
   if (!is.null(db) && !is.null(db$path)) {
     data_path <- db$path
   }
+  data_path <- get_data_path(data_path)
 
   message("============================================================")
   message("VectrixDB Dashboard")

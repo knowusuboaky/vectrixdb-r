@@ -4,7 +4,7 @@
 \alias{vectrix_info}
 \title{Display VectrixDB information}
 \usage{
-vectrix_info(path = "./vectrixdb_data")
+vectrix_info(path = NULL)
 }
 \arguments{
 \item{path}{Database path}
@@ -14,6 +14,6 @@ Show database statistics and info
 }
 \examples{
 \dontrun{
-vectrix_info("./my_data")
+vectrix_info(file.path(tempdir(), "my_data"))
 }
 }

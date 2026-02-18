@@ -93,7 +93,7 @@ download_word_vectors <- function(model = "glove-100", dest_dir = NULL, overwrit
   if (is.null(dest_dir)) {
     dest_dir <- file.path(
       Sys.getenv("VECTRIXDB_CACHE",
-                 unset = file.path(Sys.getenv("HOME"), ".vectrixdb")),
+                 unset = file.path(tempdir(), "vectrixdb_cache")),
       "models"
     )
   }

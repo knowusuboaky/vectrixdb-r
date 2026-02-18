@@ -168,6 +168,11 @@ check_python_module <- function(module) {
 #' @param path Optional custom path
 #' @return Path to data directory
 #' @keywords internal
+#' @noRd
+default_data_path <- function() {
+  file.path(tempdir(), "vectrixdb_data")
+}
+
 get_data_path <- function(path = NULL) {
 
   if (!is.null(path)) {
@@ -179,7 +184,7 @@ get_data_path <- function(path = NULL) {
 
 
   # Default path
-  default_path <- file.path(getwd(), "vectrixdb_data")
+  default_path <- default_data_path()
   if (!dir.exists(default_path)) {
     dir.create(default_path, recursive = TRUE)
   }
@@ -282,7 +287,7 @@ tokenize_text_by_language <- function(text, language = "en", remove_stopwords = 
 #' @return Logical
 #' @keywords internal
 word2vec_available <- function() {
-  "word2vec" %in% rownames(utils::installed.packages())
+  length(find.package("word2vec", quiet = TRUE)) > 0
 }
 
 #' Load word2vec model via optional runtime namespace lookup

@@ -5,7 +5,7 @@
 \alias{vectrixdb}
 \title{VectrixDB Database Class}
 \usage{
-vectrixdb(path = "./vectrixdb_data", storage_type = "memory")
+vectrixdb(path = NULL, storage_type = "memory")
 }
 \arguments{
 \item{path}{Storage path}
@@ -46,7 +46,7 @@ Main database interface managing collections
 \subsection{Method \code{new()}}{
 Create or open a VectrixDB database
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{VectrixDB$new(path = "./vectrixdb_data", storage_type = "memory")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{VectrixDB$new(path = NULL, storage_type = "memory")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

@@ -7,3 +7,11 @@
 ^vectrixdb_data$
 ^vignettes$
 ^vignettes/.*
+^pkgdown$
+^README\.html$
+^check$
+^check/.*$
+^.*\.Rcheck$
+^.*\.tar\.gz$
+^\.Rhistory$
+^\.RData$

@@ -14,7 +14,7 @@ VectrixDB <- R6::R6Class(
     #' @description Create or open a VectrixDB database
     #' @param path Storage path
     #' @param storage_type Storage type ("memory" or "sqlite")
-    initialize = function(path = "./vectrixdb_data", storage_type = "memory") {
+    initialize = function(path = NULL, storage_type = "memory") {
       self$path <- get_data_path(path)
       private$storage_type <- storage_type
       private$collections <- list()
@@ -158,6 +158,6 @@ VectrixDB <- R6::R6Class(
 #' @param path Storage path
 #' @param storage_type Storage type
 #' @return VectrixDB object
-vectrixdb <- function(path = "./vectrixdb_data", storage_type = "memory") {
+vectrixdb <- function(path = NULL, storage_type = "memory") {
   VectrixDB$new(path, storage_type)
 }

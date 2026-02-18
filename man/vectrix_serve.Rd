@@ -5,7 +5,7 @@
 \title{Start VectrixDB server}
 \usage{
 vectrix_serve(
-  path = "./vectrixdb_data",
+  path = NULL,
   host = "127.0.0.1",
   port = 7377,
   api_key = NULL,
@@ -34,6 +34,6 @@ Launch a REST API server with optional dashboard
 }
 \examples{
 \dontrun{
-vectrix_serve(path = "./my_data", port = 7377)
+vectrix_serve(path = file.path(tempdir(), "my_data"), port = 7377)
 }
 }

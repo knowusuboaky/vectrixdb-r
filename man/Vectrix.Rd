@@ -100,7 +100,7 @@ Create or open a VectrixDB collection
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Vectrix$new(
   name = "default",
-  path = "./vectrixdb_data",
+  path = NULL,
   model = NULL,
   dimension = NULL,
   embed_fn = NULL,
@@ -116,7 +116,7 @@ Create or open a VectrixDB collection
 \describe{
 \item{\code{name}}{Collection name}
 
-\item{\code{path}}{Storage path (default: ./vectrixdb_data)}
+\item{\code{path}}{Storage path. Defaults to a session temp directory.}
 
 \item{\code{model}}{Embedding model: "tfidf" (default), "glove-50", "glove-100",
 "glove-200", "glove-300", or "word2vec"}
