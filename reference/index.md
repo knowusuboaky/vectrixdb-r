@@ -35,7 +35,7 @@
 - [`DenseEmbedder`](https://knowusuboaky.github.io/vectrixdb-r/reference/DenseEmbedder.md)
   : Dense Embedder using word2vec or GloVe
 - [`DistanceMetric`](https://knowusuboaky.github.io/vectrixdb-r/reference/DistanceMetric.md)
-  : Distance Metric Types
+  : Distance Metric Enumeration
 - [`DocumentChunker`](https://knowusuboaky.github.io/vectrixdb-r/reference/DocumentChunker.md)
   : Document Chunker
 - [`ENGLISH_STOPWORDS`](https://knowusuboaky.github.io/vectrixdb-r/reference/ENGLISH_STOPWORDS.md)

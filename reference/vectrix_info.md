@@ -5,7 +5,7 @@ Show database statistics and info
 ## Usage
 
 ``` r
-vectrix_info(path = "./vectrixdb_data")
+vectrix_info(path = NULL)
 ```
 
 ## Arguments
@@ -18,6 +18,6 @@ vectrix_info(path = "./vectrixdb_data")
 
 ``` r
 if (FALSE) { # \dontrun{
-vectrix_info("./my_data")
+vectrix_info(file.path(tempdir(), "my_data"))
 } # }
 ```

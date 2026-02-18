@@ -5,7 +5,7 @@ Main database interface managing collections
 ## Usage
 
 ``` r
-vectrixdb(path = "./vectrixdb_data", storage_type = "memory")
+vectrixdb(path = NULL, storage_type = "memory")
 ```
 
 ## Arguments
@@ -60,7 +60,7 @@ Create or open a VectrixDB database
 
 #### Usage
 
-    VectrixDB$new(path = "./vectrixdb_data", storage_type = "memory")
+    VectrixDB$new(path = NULL, storage_type = "memory")
 
 #### Arguments
 

@@ -1,4 +1,4 @@
-# Distance Metric Types
+# Distance Metric Enumeration
 
 Available distance metrics for vector comparison
 
@@ -6,12 +6,8 @@ Available distance metrics for vector comparison
 
 ``` r
 DistanceMetric
-
-DistanceMetric
 ```
 
 ## Format
-
-An object of class `list` of length 4.
 
 An object of class `list` of length 4.

@@ -70,7 +70,7 @@ Create or open a VectrixDB collection
 
     Vectrix$new(
       name = "default",
-      path = "./vectrixdb_data",
+      path = NULL,
       model = NULL,
       dimension = NULL,
       embed_fn = NULL,
@@ -88,7 +88,7 @@ Create or open a VectrixDB collection
 
 - `path`:
 
-  Storage path (default: ./vectrixdb_data)
+  Storage path. Defaults to a session temp directory.
 
 - `model`:
 

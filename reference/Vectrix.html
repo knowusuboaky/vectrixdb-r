@@ -93,7 +93,7 @@
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/Vectrix.html">Vectrix</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
 <span>  name <span class="op">=</span> <span class="st">"default"</span>,</span>
-<span>  path <span class="op">=</span> <span class="st">"./vectrixdb_data"</span>,</span>
+<span>  path <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  model <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dimension <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  embed_fn <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -111,7 +111,7 @@
 
 
 <dt><code>path</code></dt>
-<dd><p>Storage path (default: ./vectrixdb_data)</p></dd>
+<dd><p>Storage path. Defaults to a session temp directory.</p></dd>
 
 
 <dt><code>model</code></dt>

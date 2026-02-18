@@ -8,7 +8,7 @@ Start the VectrixDB API server and mount the HTML dashboard at
 ``` r
 vdb_dashboard(
   db = NULL,
-  data_path = "./vectrixdb_data",
+  data_path = NULL,
   port = 7377,
   host = "127.0.0.1",
   launch.browser = TRUE,

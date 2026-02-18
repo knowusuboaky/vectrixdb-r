@@ -32,7 +32,7 @@ Create CLI config
 
 #### Usage
 
-    CLIConfig$new(verbose = TRUE, color = TRUE, data_dir = "./vectrixdb_data")
+    CLIConfig$new(verbose = TRUE, color = TRUE, data_dir = NULL)
 
 #### Arguments
 

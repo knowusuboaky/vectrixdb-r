@@ -6,7 +6,7 @@ Launch a REST API server with optional dashboard
 
 ``` r
 vectrix_serve(
-  path = "./vectrixdb_data",
+  path = NULL,
   host = "127.0.0.1",
   port = 7377,
   api_key = NULL,
@@ -49,6 +49,6 @@ Invisible NULL (server runs until stopped)
 
 ``` r
 if (FALSE) { # \dontrun{
-vectrix_serve(path = "./my_data", port = 7377)
+vectrix_serve(path = file.path(tempdir(), "my_data"), port = 7377)
 } # }
 ```

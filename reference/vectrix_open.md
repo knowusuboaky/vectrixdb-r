@@ -5,7 +5,7 @@ Open an existing Vectrix collection
 ## Usage
 
 ``` r
-vectrix_open(name = "default", path = "./vectrixdb_data")
+vectrix_open(name = "default", path = NULL)
 ```
 
 ## Arguments
